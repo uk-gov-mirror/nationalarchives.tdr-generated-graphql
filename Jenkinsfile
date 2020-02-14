@@ -16,8 +16,7 @@ pipeline {
             }
             steps {
                 script {
-                    unstash 'graphql-schema'
-                    sh 'cp target/sbt-graphql/schema.graphql src/main/resources/'
+                    sh 'cat $SCHEMA > src/main/resources'
                     sh "aws s3 cp s3://tdr-secrets/keys/sonatype.key /home/jenkins/sonatype.key"
                     sh "aws s3 cp s3://tdr-secrets/keys/sonatype_credential /home/jenkins/.sbt/sonatype_credential"
                     withCredentials([string(credentialsId: 'sonatype-gpg-passphrase', variable: 'PGP_PASSPHRASE')]) {
