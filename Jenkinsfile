@@ -4,6 +4,7 @@ pipeline {
     }
     parameters {
         choice(name: "STAGE", choices: ["intg", "staging", "prod"], description: "The stage you are building the front end for")
+        text(name: "SCHEMA", defaultValue: "")
     }
     stages {
         stage("Deploy to sonatype") {
