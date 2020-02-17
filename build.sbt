@@ -1,8 +1,6 @@
 import Dependencies._
 import sbt.url
 
-import scala.sys.process._
-
 lazy val supportedScalaVersions = List("2.13.0", "2.12.8")
 ThisBuild / version := "0.0.1"
 ThisBuild / organization := "uk.gov.nationalarchives"
@@ -37,11 +35,8 @@ useGpgPinentry := true
 resolvers +=
   "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
 
-val downloadSchema = taskKey[Unit]("Downloads the schema to a file")
-
 graphqlCodegenStyle := Apollo
 graphqlCodegenJson := JsonCodec.Circe
-compile := ((compile in Compile) dependsOn downloadSchema).value
 
 lazy val root = (project in file("."))
   .settings(
@@ -53,9 +48,6 @@ lazy val root = (project in file("."))
         circeCore,
         circeGeneric
       ),
-    downloadSchema := {
-      url("http://localhost:8080/schema") #> ((Compile / resourceDirectory).value / "schema.graphql") !
-    },
     crossScalaVersions := supportedScalaVersions
 
   ).enablePlugins(GraphQLCodegenPlugin)
