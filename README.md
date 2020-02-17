@@ -11,7 +11,6 @@ These classes will be used by other TDR repositories to communicate with the con
 * Run `sbt package publishLocal`
 
 ### Releasing
-* Commit and push the new query file in `src/main/graphql` Don't commit `src/main/resources/schema.graphql`
-* Make sure the version is bumped in `build.sbt`
+* Commit and push the new query file in `src/main/graphql`
 * Merge to master. This project will be built by the deploy job for the consignment API but it can be also run manually. Go to the TDR Graphql Code Generation
 job in Jenkins, paste the schema from the consignemnt api repo into the build parameters and build.
