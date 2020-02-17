@@ -16,7 +16,7 @@ pipeline {
             }
             steps {
                 script {
-                    sh "cat ${params.SCHEMA} > src/main/resources"
+                    sh "echo \"${params.SCHEMA.trim()}\" > src/main/resources/schema.graphql"
                     sh "aws s3 cp s3://tdr-secrets/keys/sonatype.key /home/jenkins/sonatype.key"
                     sh "aws s3 cp s3://tdr-secrets/keys/sonatype_credential /home/jenkins/.sbt/sonatype_credential"
                     withCredentials([string(credentialsId: 'sonatype-gpg-passphrase', variable: 'PGP_PASSPHRASE')]) {
