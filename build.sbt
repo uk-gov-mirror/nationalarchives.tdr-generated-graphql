@@ -23,7 +23,7 @@ ThisBuild / developers := List(
   )
 )
 
-ThisBuild / description := "Slick classes generated from the database schema for the Transfer Digital Records service"
+ThisBuild / description := "Classes to be used by the graphql client to communicate with the TDR graphql API"
 ThisBuild / licenses := List("MIT" -> new URL("https://choosealicense.com/licenses/mit/"))
 ThisBuild / homepage := Some(url("https://github.com/nationalarchives/tdr-consignment-api-data"))
 
