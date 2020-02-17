@@ -24,7 +24,9 @@ pipeline {
                         sh 'gpg --batch --passphrase $PGP_PASSPHRASE --import /home/jenkins/sonatype.key'
                         sshagent(['github-jenkins']) {
                             sh 'git push --set-upstream origin master'
-                            sh "sbt +package +'release with-defaults' +publishSigned +sonatypeBundleRelease"
+                            sh 'git config --global user.email tna-digital-archiving-jenkins@nationalarchives.gov.uk'
+                            sh 'git config --global user.name tna-digital-archiving-jenkins'
+                            sh "sbt +package +'release with-defaults' +sonatypeBundleRelease"
                             slackSend color: "good", message: "The graphql codegen package has been published", channel: "#tdr"
                         }
                     }

@@ -1,5 +1,6 @@
 import Dependencies._
 import sbt.url
+import ReleaseTransformations._
 
 lazy val supportedScalaVersions = List("2.13.0", "2.12.8")
 ThisBuild / version := (version in ThisBuild).value
@@ -37,6 +38,8 @@ resolvers +=
 
 graphqlCodegenStyle := Apollo
 graphqlCodegenJson := JsonCodec.Circe
+
+releasePublishArtifactsAction := PgpKeys.publishSigned.value
 
 lazy val root = (project in file("."))
   .settings(
