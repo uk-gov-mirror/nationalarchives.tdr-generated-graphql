@@ -22,7 +22,7 @@ pipeline {
                     sh "aws s3 cp s3://tdr-secrets/keys/sonatype_credential /home/jenkins/.sbt/sonatype_credential"
                     withCredentials([string(credentialsId: 'sonatype-gpg-passphrase', variable: 'PGP_PASSPHRASE')]) {
                         sh 'gpg --batch --passphrase $PGP_PASSPHRASE --import /home/jenkins/sonatype.key'
-                        sh "sbt compile package publishSigned sonatypeBundleRelease"
+                        sh "sbt +compile +package +publishSigned +sonatypeBundleRelease"
                         slackSend color: "good", message: "The graphql codegen package has been published", channel: "#tdr"
                     }
                 }
