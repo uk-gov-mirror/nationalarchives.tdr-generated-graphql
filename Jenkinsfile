@@ -26,7 +26,7 @@ pipeline {
                             sh 'git push --set-upstream origin master'
                             sh 'git config --global user.email tna-digital-archiving-jenkins@nationalarchives.gov.uk'
                             sh 'git config --global user.name tna-digital-archiving-jenkins'
-                            sh "sbt +package +'release with-defaults' +sonatypeBundleRelease"
+                            sh "sbt +'release with-defaults'"
                             slackSend color: "good", message: "The graphql codegen package has been published", channel: "#tdr"
                         }
                     }
