@@ -2,6 +2,7 @@ import Dependencies._
 import sbt.url
 
 lazy val supportedScalaVersions = List("2.13.0", "2.12.8")
+scalaVersion := "2.13.0"
 ThisBuild / version := "0.0.1"
 ThisBuild / organization := "uk.gov.nationalarchives"
 ThisBuild / organizationName := "National Archives"
