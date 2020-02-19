@@ -27,7 +27,7 @@ pipeline {
                             sh 'git config --global user.email tna-digital-archiving-jenkins@nationalarchives.gov.uk'
                             sh 'git config --global user.name tna-digital-archiving-jenkins'
                             sh "sbt +'release with-defaults'"
-                            slackSend color: "good", message: "The graphql codegen package has been published", channel: "#tdr-releases"
+                            slackSend color: "good", message: "*GraphQL schema* :arrow_up: The generated GraphQL schema has been published", channel: "#tdr-releases"
                         }
                     }
                 }
