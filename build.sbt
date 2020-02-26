@@ -39,6 +39,7 @@ resolvers +=
 graphqlCodegenStyle := Apollo
 graphqlCodegenJson := JsonCodec.Circe
 releasePublishArtifactsAction := PgpKeys.publishSigned.value
+graphqlCodegenImports ++= List("java.util.UUID" )
 
 releaseProcess := Seq[ReleaseStep](
   checkSnapshotDependencies,
