@@ -7,6 +7,8 @@ ThisBuild / version := (version in ThisBuild).value
 ThisBuild / organization := "uk.gov.nationalarchives"
 ThisBuild / organizationName := "National Archives"
 
+scalaVersion := "2.13.0"
+
 ThisBuild / scmInfo := Some(
   ScmInfo(
     url("https://github.com/nationalarchives/tdr-generated-graphql"),
