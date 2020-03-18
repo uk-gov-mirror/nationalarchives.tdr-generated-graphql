@@ -8,6 +8,7 @@ getTransferAgreement(consignmentid: $consignmentId)
         allCrownCopyright,
         allPublicRecords,
         appraisalSelectionSignedOff,
-        sensitivityReviewSignedOff
+        sensitivityReviewSignedOff,
+	isAgreementComplete
     }
 }
