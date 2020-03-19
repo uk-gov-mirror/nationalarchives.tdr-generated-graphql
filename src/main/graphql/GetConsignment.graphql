@@ -1,7 +1,6 @@
-query getConsignment($consignmentid: Long) {
+query getConsignment($consignmentId: Long!) {
     getConsignment(consignmentid: $consignmentId) {
         userid
         seriesid
     }
 }
- 
