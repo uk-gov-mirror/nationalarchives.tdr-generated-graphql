@@ -1,0 +1,5 @@
+query isTransferAgreementComplete($consignmentId: Long!) {
+  getTransferAgreement(consignmentid: $consignmentId) {
+    isAgreementComplete
+  }
+}
