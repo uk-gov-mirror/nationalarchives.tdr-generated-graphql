@@ -1,14 +1,13 @@
 query getTransferAgreement($consignmentId: Long!) {
-getTransferAgreement(consignmentid: $consignmentId)
-    {
-        transferAgreementId,
-        consignmentId,
-        allEnglish,
-        allDigital,
-        allCrownCopyright,
-        allPublicRecords,
-        appraisalSelectionSignedOff,
-        sensitivityReviewSignedOff,
-	isAgreementComplete
-    }
+  getTransferAgreement(consignmentid: $consignmentId) {
+    transferAgreementId
+    consignmentId
+    allEnglish
+    allDigital
+    allCrownCopyright
+    allPublicRecords
+    appraisalSelectionSignedOff
+    sensitivityReviewSignedOff
+    isAgreementComplete
+  }
 }
