@@ -16,20 +16,22 @@ pipeline {
                         }
                     }
                     steps {
-                        checkout scm
-                        sh 'npm ci'
-                        sh 'npm run codegen'
-                        sh 'git config --global user.email tna-digital-archiving-jenkins@nationalarchives.gov.uk'
-                        sh 'git config --global user.name tna-digital-archiving-jenkins'
-                        sshagent(['github-jenkins']) {
+                        sh "mkdir -p src/main/resources"
+                        sh "echo \"${params.SCHEMA.trim()}\" > src/main/resources/schema.graphql"
+                        dir("ts"){
+                            sh 'npm ci'
+                            sh 'npm run codegen'
+                            sh 'git config --global user.email tna-digital-archiving-jenkins@nationalarchives.gov.uk'
+                            sh 'git config --global user.name tna-digital-archiving-jenkins'
+                            sshagent(['github-jenkins']) {
                             sh "npm version ${params.VERSION}"
-                        }
+                            }
 
-                        withCredentials([string(credentialsId: 'npm-login', variable: 'LOGIN_TOKEN')]) {
-                            sh "npm config set //registry.npmjs.org/:_authToken=$LOGIN_TOKEN"
-                            sh 'npm publish --access public'
+                            withCredentials([string(credentialsId: 'npm-login', variable: 'LOGIN_TOKEN')]) {
+                                sh "npm config set //registry.npmjs.org/:_authToken=$LOGIN_TOKEN"
+                                sh 'npm publish --access public'
+                            }
                         }
-                        
                     }
 
                 }
