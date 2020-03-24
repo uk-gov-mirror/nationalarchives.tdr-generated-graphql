@@ -17,14 +17,14 @@ pipeline {
                     }
                     steps {
                         sh "mkdir -p src/main/resources"
-                        sh "echo \"${params.SCHEMA.trim()}\" > src/main/resources/schema.graphql"
+                        sh "echo '${params.SCHEMA.trim()}' > src/main/resources/schema.graphql"
                         dir("ts"){
                             sh 'npm ci'
                             sh 'npm run codegen'
                             sh 'git config --global user.email tna-digital-archiving-jenkins@nationalarchives.gov.uk'
                             sh 'git config --global user.name tna-digital-archiving-jenkins'
                             sshagent(['github-jenkins']) {
-                            sh "npm version ${params.VERSION}"
+                                sh "npm version patch"
                             }
 
                             withCredentials([string(credentialsId: 'npm-login', variable: 'LOGIN_TOKEN')]) {
@@ -45,7 +45,7 @@ pipeline {
                     steps {
                         script {
                             sh "mkdir -p src/main/resources"
-                            sh "echo \"${params.SCHEMA.trim()}\" > src/main/resources/schema.graphql"
+                            sh "echo '${params.SCHEMA.trim()}' > src/main/resources/schema.graphql"
                             sh "aws s3 cp s3://tdr-secrets/keys/sonatype.key /home/jenkins/sonatype.key"
                             sh "aws s3 cp s3://tdr-secrets/keys/sonatype_credential /home/jenkins/.sbt/sonatype_credential"
                             withCredentials([string(credentialsId: 'sonatype-gpg-passphrase', variable: 'PGP_PASSPHRASE')]) {
