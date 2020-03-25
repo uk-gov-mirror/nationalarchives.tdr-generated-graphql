@@ -18,8 +18,8 @@ module.exports = {
   },
   plugins: [new DtsBundlePlugin()],
   output: {
-    filename: "main.js",
-    path: path.resolve(__dirname, "../public/javascripts")
+    filename: "index.js",
+    path: path.resolve(__dirname, ".")
   }
 };
 
@@ -31,7 +31,7 @@ DtsBundlePlugin.prototype.apply = function(compiler) {
     dts.bundle({
       name: "tdr",
       main: "src/index.d.ts",
-      out: "../dist/index.d.ts",
+      out: "../index.d.ts",
       removeSource: true,
       outputAsModuleFolder: true // to use npm in-package typings
     });
