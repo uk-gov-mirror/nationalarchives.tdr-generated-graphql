@@ -5,10 +5,10 @@ config:
   scalars:
     Long: number
 generates:
-  index.d.ts:
+  src/index.d.ts:
     plugins:
       - typescript-graphql-files-modules
-  index.ts:
+  src/index.ts:
     plugins:
       - "typescript"
       - "typescript-operations"

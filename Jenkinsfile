@@ -21,6 +21,7 @@ pipeline {
                         dir("ts"){
                             sh 'npm ci'
                             sh 'npm run codegen'
+			    sh 'npm run build'
                             sh 'git config --global user.email tna-digital-archiving-jenkins@nationalarchives.gov.uk'
                             sh 'git config --global user.name tna-digital-archiving-jenkins'
                             sshagent(['github-jenkins']) {

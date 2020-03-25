@@ -1,6 +1,6 @@
 {
   "name": "@nationalarchives/tdr-generated-graphql",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "",
   "main": "index.ts",
   "scripts": {
@@ -17,6 +17,11 @@
   "bugs": {
     "url": "https://github.com/nationalarchives/tdr-generated-graphql/issues"
   },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "package.json"
+  ],
   "homepage": "https://github.com/nationalarchives/tdr-generated-graphql#readme",
   "devDependencies": {
     "ts-loader": "^6.2.2",
