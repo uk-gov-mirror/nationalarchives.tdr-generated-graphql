@@ -1,0 +1,11 @@
+mutation AddClientFileMetadata($input: AddClientFileMetadataInput!){
+    addClientFileMetadata(addClientFileMetadataInput: $input) {
+        originalPath
+        checksum
+        checksumType
+        lastModified
+        createdDate
+        fileSize
+        datetime
+    }
+}
