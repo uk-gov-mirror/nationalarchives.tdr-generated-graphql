@@ -18,6 +18,8 @@ module.exports = {
   },
   plugins: [new DtsBundlePlugin()],
   output: {
+    library: "",
+    libraryTarget: "commonjs-module",
     filename: "index.js",
     path: path.resolve(__dirname, ".")
   }
