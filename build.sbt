@@ -41,7 +41,6 @@ resolvers +=
 
 graphqlCodegenStyle := Apollo
 graphqlCodegenJson := JsonCodec.Circe
-releasePublishArtifactsAction := PgpKeys.publishSigned.value
 graphqlCodegenImports ++= List("java.util.UUID" )
 
 lazy val root = (project in file("."))
