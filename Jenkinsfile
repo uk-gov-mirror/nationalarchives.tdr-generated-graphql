@@ -36,11 +36,11 @@ pipeline {
                     }
 
                 }
-                stage("Deploy to sonatype") {
+                stage("Deploy to s3") {
                     agent {
                         ecs {
                             inheritFrom "base"
-                            taskDefinitionOverride "arn:aws:ecs:eu-west-2:${env.MANAGEMENT_ACCOUNT}:task-definition/sonatype-${params.STAGE}:1"
+                            taskDefinitionOverride "arn:aws:ecs:eu-west-2:${env.MANAGEMENT_ACCOUNT}:task-definition/s3publish-${params.STAGE}:1"
                         }
                     }
                     steps {
