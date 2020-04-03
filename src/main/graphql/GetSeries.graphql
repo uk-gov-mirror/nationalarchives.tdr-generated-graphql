@@ -1,4 +1,4 @@
-query getSeries($body: String) {
+query getSeries($body: String!) {
     getSeries(body: $body) {
         seriesid,
         bodyid,
