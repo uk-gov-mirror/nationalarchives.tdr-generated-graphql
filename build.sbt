@@ -32,7 +32,7 @@ ThisBuild / publishMavenStyle := false
 
 ThisBuild / publishTo := {
   val prefix = if (isSnapshot.value) "snapshots" else "releases"
-  Some(s3resolver.value(s"My ${prefix} S3 bucket", s3(s"$prefix.nationalarchives.gov.uk")))
+  Some(s3resolver.value(s"My ${prefix} S3 bucket", s3(s"tdr-$prefix-mgmt")))
 }
 
 
