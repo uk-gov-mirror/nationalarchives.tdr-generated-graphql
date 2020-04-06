@@ -1,4 +1,4 @@
-query getTransferAgreement($consignmentId: Long!) {
+query getTransferAgreement($consignmentId: UUID!) {
   getTransferAgreement(consignmentid: $consignmentId) {
     transferAgreementId
     consignmentId

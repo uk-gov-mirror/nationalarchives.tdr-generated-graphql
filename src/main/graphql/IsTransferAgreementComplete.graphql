@@ -1,4 +1,4 @@
-query isTransferAgreementComplete($consignmentId: Long!) {
+query isTransferAgreementComplete($consignmentId: UUID!) {
   getTransferAgreement(consignmentid: $consignmentId) {
     isAgreementComplete
   }

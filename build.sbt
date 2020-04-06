@@ -1,8 +1,6 @@
 import Dependencies._
 import sbt.url
-import ReleaseTransformations._
 
-lazy val supportedScalaVersions = List("2.13.0", "2.12.8")
 ThisBuild / version := (version in ThisBuild).value
 ThisBuild / organization := "uk.gov.nationalarchives"
 ThisBuild / organizationName := "National Archives"
@@ -28,35 +26,22 @@ ThisBuild / description := "Classes to be used by the graphql client to communic
 ThisBuild / licenses := List("MIT" -> new URL("https://choosealicense.com/licenses/mit/"))
 ThisBuild / homepage := Some(url("https://github.com/nationalarchives/tdr-consignment-api-data"))
 
-// Remove all additional repository other than Maven Central from POM
-ThisBuild / pomIncludeRepository := { _ => false }
-ThisBuild / publishTo := sonatypePublishToBundle.value
-ThisBuild / publishMavenStyle := true
+s3acl := None
+s3sse := true
+ThisBuild / publishMavenStyle := true 
 
-useGpgPinentry := true
+ThisBuild / publishTo := {
+  val prefix = if (isSnapshot.value) "snapshots" else "releases"
+  Some(s3resolver.value(s"My ${prefix} S3 bucket", s3(s"tdr-$prefix-mgmt")))
+}
+
 
 resolvers +=
   "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
 
 graphqlCodegenStyle := Apollo
 graphqlCodegenJson := JsonCodec.Circe
-releasePublishArtifactsAction := PgpKeys.publishSigned.value
 graphqlCodegenImports ++= List("java.util.UUID" )
-
-releaseProcess := Seq[ReleaseStep](
-  checkSnapshotDependencies,
-  inquireVersions,
-  runClean,
-  runTest,
-  setReleaseVersion,
-  commitReleaseVersion,
-  tagRelease,
-  releaseStepCommandAndRemaining("+publishSigned"),
-  releaseStepCommand("sonatypeBundleRelease"),
-  setNextVersion,
-  commitNextVersion,
-  pushChanges
-)
 
 lazy val root = (project in file("."))
   .settings(
@@ -67,7 +52,6 @@ lazy val root = (project in file("."))
         sangria,
         circeCore,
         circeGeneric
-      ),
-    crossScalaVersions := supportedScalaVersions
+      )
 
   ).enablePlugins(GraphQLCodegenPlugin)
