@@ -1,4 +1,4 @@
-mutation AddClientFileMetadata($input: AddClientFileMetadataInput!){
+mutation AddClientFileMetadata($input: [AddClientFileMetadataInput!]!) {
     addClientFileMetadata(addClientFileMetadataInput: $input) {
         originalPath
         checksum
