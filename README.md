@@ -20,7 +20,6 @@ Other sbt projects that have this project as a dependency can access the local s
   "uk.gov.nationalarchives" %% "tdr-generate-graphql" % "[version number]-SNAPSHOT"
   ... other dependences...
   ```
-
   
 #### Typescript version  
 The following commands create a symbolic link to the generated Typescript version of the schema.
