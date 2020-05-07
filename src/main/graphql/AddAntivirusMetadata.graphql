@@ -1,0 +1,11 @@
+mutation AddAntivirusMetadata($input: [AddAntivirusMetadataInput!]!) {
+    addAntivirusMetadata(addAntivirusMetadataInput: $input) {
+        fileId
+        software
+        value
+        softwareVersion
+        databaseVersion
+        result
+        datetime
+    }
+}
