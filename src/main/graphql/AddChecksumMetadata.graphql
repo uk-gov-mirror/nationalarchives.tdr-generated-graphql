@@ -1,0 +1,6 @@
+mutation AddChecksumMetadata($input: [AddChecksumMetadataInput!]!) {
+    addChecksumMetadata(addChecksumMetadataInput: $input) {
+        fileId
+        checksum
+    }
+}
