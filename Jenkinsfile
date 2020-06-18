@@ -62,13 +62,3 @@ pipeline {
         }
     }
 }
-
-def getAccountNumberFromStage() {
-    def stageToAccountMap = [
-            "intg": env.INTG_ACCOUNT,
-            "staging": env.STAGING_ACCOUNT,
-            "prod": env.PROD_ACCOUNT
-    ]
-
-    return stageToAccountMap.get(params.STAGE)
-}
