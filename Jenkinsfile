@@ -1,12 +1,13 @@
 library("tdr-jenkinslib")
 
-def npmVersionBumpBranch = "npm-version-bump-${BUILD_NUMBER}-${params.VERSION}"
-def sbtVersionBumpBranch = "sbt-version-bump-${BUILD_NUMBER}-${params.VERSION}"
+def npmVersionBumpBranch = "npm-version-bump-${BUILD_NUMBER}"
+def sbtVersionBumpBranch = "sbt-version-bump-${BUILD_NUMBER}"
 
 pipeline {
   agent none
   parameters {
-    choice(name: "VERSION", choices: ["patch", "minor", "major"], description: "The stage you are building the front end for")
+    choice(name: "STAGE", choices: ["intg", "staging", "prod"], description: "The stage you are deploying the schema to")
+    text(name: "SCHEMA", defaultValue: "")
   }
   stages {
     stage("Deployment") {
