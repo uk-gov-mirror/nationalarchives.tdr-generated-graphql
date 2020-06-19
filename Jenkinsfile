@@ -21,10 +21,7 @@ pipeline {
           stages {
             stage("Create npm version bump GitHub branch") {
               steps {
-                script {
-                  tdr.configureJenkinsGitUser()
-                }
-                sh "git checkout -b ${npmVersionBumpBranch}"
+                createUpdateBranch(npmVersionBumpBranch)
               }
             }
             stage("Update npm version") {
@@ -67,10 +64,7 @@ pipeline {
           stages {
             stage("Create sbt version bump GitHub branch") {
               steps {
-                script {
-                  tdr.configureJenkinsGitUser()
-                }
-                sh "git checkout -b ${sbtVersionBumpBranch}"
+                createUpdateBranch(sbtVersionBumpBranch)
                 script {
                   tdr.pushGitHubBranch(sbtVersionBumpBranch)
                 }
@@ -100,31 +94,34 @@ pipeline {
         stages {
           stage("Create npm version bump pull request") {
             steps {
-              script {
-                tdr.createGitHubPullRequest(
-                  pullRequestTitle: "Npm Version Bump from build number ${BUILD_NUMBER}",
-                  buildUrl: env.BUILD_URL,
-                  repo: "tdr-generated-graphql",
-                  branchToMergeTo: "master",
-                  branchToMerge: npmVersionBumpBranch
-                )
-              }
+              createGitHubPullRequest("Npm", npmVersionBumpBranch)
             }
           }
           stage("Create sbt version bump pull request") {
             steps {
-              script {
-                tdr.createGitHubPullRequest(
-                  pullRequestTitle: "Sbt Version Bump from build number ${BUILD_NUMBER}",
-                  buildUrl: env.BUILD_URL,
-                  repo: "tdr-generated-graphql",
-                  branchToMergeTo: "master",
-                  branchToMerge: sbtVersionBumpBranch
-                )
-              }
+              createGitHubPullRequest("Sbt", sbtVersionBumpBranch)
             }
           }
         }
       }
     }
+}
+
+def createUpdateBranch(String branch) {
+  script {
+    tdr.configureJenkinsGitUser()
+  }
+  sh "git checkout -b ${branch}"
+}
+
+def createPullRequest(String buildType, String branch) {
+  script {
+    tdr.createGitHubPullRequest(
+      pullRequestTitle: "${buildType} Version Bump from build number ${BUILD_NUMBER}",
+      buildUrl: env.BUILD_URL,
+      repo: "tdr-generated-graphql",
+      branchToMergeTo: "master",
+      branchToMerge: branch
+    )
+  }
 }
