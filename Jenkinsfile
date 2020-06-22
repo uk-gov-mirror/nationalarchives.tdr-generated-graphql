@@ -110,18 +110,6 @@ pipeline {
                 slackSend color: "good", message: "*GraphQL schema* :arrow_up: The generated GraphQL schema has been published", channel: "#bot-testing"
               }
             }
-            stage("Commit sbt version bump changes") {
-              steps {
-                script {
-                  tdr.configureJenkinsGitUser()
-                }
-                sshagent(['github-jenkins']) {
-                  sh "git commit -m 'Commit sbt change'"
-                  sh "git pull"
-                  sh "git push origin ${versionBumpBranch}"
-                }
-              }
-            }
           }
         }
       }
