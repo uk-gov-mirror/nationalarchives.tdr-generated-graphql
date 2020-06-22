@@ -1,15 +1,29 @@
 library("tdr-jenkinslib")
 
-def npmVersionBumpBranch = "npm-version-bump-${BUILD_NUMBER}"
-def sbtVersionBumpBranch = "sbt-version-bump-${BUILD_NUMBER}"
+def versionBumpBranch = "version-bump-${BUILD_NUMBER}"
 
 pipeline {
   agent none
+
   parameters {
     choice(name: "STAGE", choices: ["intg", "staging", "prod"], description: "The stage you are deploying the schema to")
     text(name: "SCHEMA", defaultValue: "")
   }
   stages {
+    stage("Create version bump branch") {
+      agent {
+        label "master"
+      }
+      steps {
+        script {
+          tdr.configureJenkinsGitUser()
+        }
+        sh "git checkout -b ${versionBumpBranch}"
+        script {
+          tdr.pushGitHubBranch("${versionBumpBranch}")
+        }
+      }
+    }
     stage("Deployment") {
       parallel {
         stage("Deploy to npm") {
@@ -19,9 +33,14 @@ pipeline {
             }
           }
           stages {
-            stage("Create npm version bump GitHub branch") {
+            stage ("Checkout and track version bump branch") {
               steps {
-                createUpdateBranch(npmVersionBumpBranch)
+                script {
+                  tdr.configureJenkinsGitUser()
+                }
+                sshagent(['github-jenkins']) {
+                  sh "git checkout -b ${versionBumpBranch} --track origin/${versionBumpBranch}"
+                }
               }
             }
             stage("Update npm version") {
@@ -45,10 +64,15 @@ pipeline {
                 }
               }
             }
-            stage("Push npm version bump GitHub branch") {
+            stage("Commit npm version bump changes to branch") {
               steps {
                 script {
-                  tdr.pushGitHubBranch(npmVersionBumpBranch)
+                  tdr.configureJenkinsGitUser()
+                }
+                sshagent(['github-jenkins']) {
+                  sh "git commit -m 'Commit npm change'"
+                  sh "git pull"
+                  sh "git push origin ${versionBumpBranch}"
                 }
               }
             }
@@ -62,11 +86,13 @@ pipeline {
             }
           }
           stages {
-            stage("Create sbt version bump GitHub branch") {
+            stage("Checkout and track branch version bump branch") {
               steps {
-                createUpdateBranch(sbtVersionBumpBranch)
                 script {
-                  tdr.pushGitHubBranch(sbtVersionBumpBranch)
+                  tdr.configureJenkinsGitUser()
+                }
+                sshagent(['github-jenkins']) {
+                  sh "git checkout -b ${versionBumpBranch} --track origin/${versionBumpBranch}"
                 }
               }
             }
@@ -76,52 +102,48 @@ pipeline {
                 sh "echo '${params.SCHEMA.trim()}' > src/main/resources/schema.graphql"
 
                 //commits to origin branch
-                  sshagent(['github-jenkins']) {
-                    sh "sbt 'release with-defaults'"
-                  }
+                sshagent(['github-jenkins']) {
+                  sh "sbt 'release with-defaults'"
+                }
 
-                  slackSend color: "good", message: "*GraphQL schema* :arrow_up: The generated GraphQL schema has been published", channel: "#tdr-releases"
+                slackSend color: "good", message: "*GraphQL schema* :arrow_up: The generated GraphQL schema has been published", channel: "#bot-testing"
+              }
+            }
+            stage("Commit sbt version bump changes") {
+              steps {
+                script {
+                  tdr.configureJenkinsGitUser()
+                }
+                sshagent(['github-jenkins']) {
+                  sh "git commit -m 'Commit sbt change'"
+                  sh "git pull"
+                  sh "git push origin ${versionBumpBranch}"
                 }
               }
             }
           }
         }
       }
-      stage("Create pull requests") {
-        agent {
-          label "master"
-        }
-        stages {
-          stage("Create npm version bump pull request") {
-            steps {
-              createGitHubPullRequest("Npm", npmVersionBumpBranch)
-            }
-          }
-          stage("Create sbt version bump pull request") {
-            steps {
-              createGitHubPullRequest("Sbt", sbtVersionBumpBranch)
+    }
+    stage("Create pull requests") {
+      agent {
+        label "master"
+      }
+      stages {
+        stage("Create version bump pull request") {
+          steps {
+            script {
+              tdr.createGitHubPullRequest(
+                pullRequestTitle: "Version Bump from build number ${BUILD_NUMBER}",
+                buildUrl: env.BUILD_URL,
+                repo: "tdr-generated-graphql",
+                branchToMergeTo: "master",
+                branchToMerge: versionBumpBranch
+              )
             }
           }
         }
       }
     }
-}
-
-def createUpdateBranch(String branch) {
-  script {
-    tdr.configureJenkinsGitUser()
-  }
-  sh "git checkout -b ${branch}"
-}
-
-def createPullRequest(String buildType, String branch) {
-  script {
-    tdr.createGitHubPullRequest(
-      pullRequestTitle: "${buildType} Version Bump from build number ${BUILD_NUMBER}",
-      buildUrl: env.BUILD_URL,
-      repo: "tdr-generated-graphql",
-      branchToMergeTo: "master",
-      branchToMerge: branch
-    )
   }
 }
