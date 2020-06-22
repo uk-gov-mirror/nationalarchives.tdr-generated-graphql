@@ -70,9 +70,10 @@ pipeline {
                   tdr.configureJenkinsGitUser()
                 }
                 sshagent(['github-jenkins']) {
-                  sh "git commit -m 'Commit npm change'"
                   sh "git pull"
-                  sh "git push origin ${versionBumpBranch}"
+                }
+                script {
+                  tdr.pushGitHubBranch(versionBumpBranch)
                 }
               }
             }
