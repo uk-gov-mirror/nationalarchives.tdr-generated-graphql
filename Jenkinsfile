@@ -20,7 +20,7 @@ pipeline {
         }
         sh "git checkout -b ${versionBumpBranch}"
         script {
-          tdr.pushGitHubBranch("${versionBumpBranch}")
+          tdr.pushGitHubBranch(versionBumpBranch)
         }
       }
     }
@@ -64,12 +64,13 @@ pipeline {
                 }
               }
             }
-            stage("Commit npm version bump changes to branch") {
+            stage("Commit npm version bump changes to origin branch") {
               steps {
                 script {
                   tdr.configureJenkinsGitUser()
                 }
                 sshagent(['github-jenkins']) {
+                  //ensure no conflicts with sbt update which runs in parallel
                   sh "git pull"
                 }
                 script {
@@ -107,30 +108,26 @@ pipeline {
                   sh "sbt 'release with-defaults'"
                 }
 
-                slackSend color: "good", message: "*GraphQL schema* :arrow_up: The generated GraphQL schema has been published", channel: "#bot-testing"
+                slackSend color: "good", message: "*GraphQL schema* :arrow_up: The generated GraphQL schema has been published", channel: "#tdr-releases"
               }
             }
           }
         }
       }
     }
-    stage("Create pull requests") {
+    stage("Create version bump pull request") {
       agent {
         label "master"
       }
-      stages {
-        stage("Create version bump pull request") {
-          steps {
-            script {
-              tdr.createGitHubPullRequest(
-                pullRequestTitle: "Version Bump from build number ${BUILD_NUMBER}",
-                buildUrl: env.BUILD_URL,
-                repo: "tdr-generated-graphql",
-                branchToMergeTo: "master",
-                branchToMerge: versionBumpBranch
-              )
-            }
-          }
+      steps {
+        script {
+          tdr.createGitHubPullRequest(
+            pullRequestTitle: "Version Bump from build number ${BUILD_NUMBER}",
+            buildUrl: env.BUILD_URL,
+            repo: "tdr-generated-graphql",
+            branchToMergeTo: "master",
+            branchToMerge: versionBumpBranch
+          )
         }
       }
     }
