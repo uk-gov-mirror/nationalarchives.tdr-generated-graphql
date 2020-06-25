@@ -108,7 +108,9 @@ pipeline {
                   sh "sbt 'release with-defaults'"
                 }
 
-                tdr.postToDaTdrSlackChannel(colour: "good", message: "*GraphQL schema* :arrow_up: The generated GraphQL schema has been published")
+                script {
+                  tdr.postToDaTdrSlackChannel(colour: "good", message: "*GraphQL schema* :arrow_up: The generated GraphQL schema has been published")
+                }
               }
             }
           }
