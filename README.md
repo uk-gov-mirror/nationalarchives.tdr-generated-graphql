@@ -17,7 +17,7 @@ This will place a snapshot version of the built project jar in the local .ivy ca
 Other sbt projects that have this project as a dependency can access the local snapshot version by changing the version number in their build.sbt file, for example:
   ```
   ... other dependencies...
-  "uk.gov.nationalarchives" %% "tdr-generate-graphql" % "[version number]-SNAPSHOT"
+  "uk.gov.nationalarchives" %% "tdr-generated-graphql" % "[version number]-SNAPSHOT"
   ... other dependences...
   ```
   
