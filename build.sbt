@@ -5,7 +5,7 @@ ThisBuild / version := (version in ThisBuild).value
 ThisBuild / organization := "uk.gov.nationalarchives"
 ThisBuild / organizationName := "National Archives"
 
-scalaVersion := "2.13.0"
+scalaVersion := "2.13.3"
 
 ThisBuild / scmInfo := Some(
   ScmInfo(
