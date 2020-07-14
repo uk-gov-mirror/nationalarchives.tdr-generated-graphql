@@ -2,5 +2,11 @@ query getConsignment($consignmentId: UUID!) {
     getConsignment(consignmentid: $consignmentId) {
         userid
         seriesid
+        totalFiles
+        fileCheckProgress {
+            antivirusProgress {
+                processedFiles
+            }
+        }
     }
 }
