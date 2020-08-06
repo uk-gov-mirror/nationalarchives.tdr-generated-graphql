@@ -1,6 +1,7 @@
 library("tdr-jenkinslib")
 
 def versionBumpBranch = "version-bump-${BUILD_NUMBER}"
+def repo = "tdr-generated-graphql"
 
 pipeline {
   agent none
@@ -10,6 +11,16 @@ pipeline {
     text(name: "SCHEMA", defaultValue: "")
   }
   stages {
+    stage("Run git secrets") {
+      agent {
+        label "master"
+      }
+      steps {
+        script {
+          tdr.runGitSecrets(repo)
+        }
+      }
+    }
     stage("Create version bump branch") {
       agent {
         label "master"
