@@ -4,7 +4,9 @@ def versionBumpBranch = "version-bump-${BUILD_NUMBER}"
 def repo = "tdr-generated-graphql"
 
 pipeline {
-  agent none
+  agent {
+    label "master"
+  }
 
   parameters {
     choice(name: "STAGE", choices: ["intg", "staging", "prod"], description: "The stage you are deploying the schema to")
@@ -12,9 +14,6 @@ pipeline {
   }
   stages {
     stage("Run git secrets") {
-      agent {
-        label "master"
-      }
       steps {
         script {
           tdr.runGitSecrets(repo)
@@ -22,9 +21,6 @@ pipeline {
       }
     }
     stage("Create version bump branch") {
-      agent {
-        label "master"
-      }
       steps {
         script {
           tdr.configureJenkinsGitUser()
@@ -129,9 +125,6 @@ pipeline {
       }
     }
     stage("Create version bump pull request") {
-      agent {
-        label "master"
-      }
       steps {
         script {
           tdr.createGitHubPullRequest(
