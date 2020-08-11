@@ -75,12 +75,6 @@ pipeline {
               steps {
                 script {
                   tdr.configureJenkinsGitUser()
-                }
-                sshagent(['github-jenkins']) {
-                  //ensure no conflicts with sbt update which runs in parallel
-                  sh "git pull"
-                }
-                script {
                   tdr.pushGitHubBranch(versionBumpBranch)
                 }
               }
