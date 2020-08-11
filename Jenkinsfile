@@ -32,7 +32,7 @@ pipeline {
       }
     }
     stage("Deployment") {
-      parallel {
+      stages {
         stage("Deploy to npm") {
           agent {
             ecs {
