@@ -59,9 +59,13 @@ pipeline {
                   sh 'npm run codegen'
                   sh 'npm run build'
 
-                  //commits to local branch
                   sshagent(['github-jenkins']) {
                     sh "npm version patch"
+                    //npm version will not commit version updates if the package.json is in a different directory to .git directory
+                    //Open PR to add this feature to npm version: https://github.com/npm/cli/pull/1557
+                    //In the interim include git commands to commit the changes to the branch
+                    sh "git add package.json package-lock.json"
+                    sh "git commit -m 'Update npm version'"
                   }
 
                   withCredentials([string(credentialsId: 'npm-login', variable: 'LOGIN_TOKEN')]) {
