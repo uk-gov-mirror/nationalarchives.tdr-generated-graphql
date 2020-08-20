@@ -5,6 +5,10 @@ query getFileCheckProgress($consignmentId: UUID!) {
             antivirusProgress {
                 filesProcessed
             }
+            checksumProgress {
+                filesProcessed
+            }
+
         }
     }
 }
