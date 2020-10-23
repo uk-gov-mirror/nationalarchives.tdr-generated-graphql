@@ -1,4 +1,4 @@
-query getParentFolder($consignmentId: UUID!) {
+query getConsignmentFolderDetails($consignmentId: UUID!) {
     getConsignment(consignmentid: $consignmentId) {
         totalFiles
         parentFolder
