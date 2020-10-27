@@ -1,0 +1,6 @@
+query getConsignmentFolderDetails($consignmentId: UUID!) {
+    getConsignment(consignmentid: $consignmentId) {
+        totalFiles
+        parentFolder
+    }
+}
