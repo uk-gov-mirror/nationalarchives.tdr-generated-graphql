@@ -3,3 +3,4 @@ query getFiles($consignmentId: UUID!) {
         fileIds
     }
 }
+
