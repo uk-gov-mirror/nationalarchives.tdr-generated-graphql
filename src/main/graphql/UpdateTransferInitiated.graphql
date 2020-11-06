@@ -1,0 +1,4 @@
+mutation updateTransferInitiated($consignmentId: UUID!) {
+    updateTransferInitiated(consignmentid: $consignmentId)
+}
+
