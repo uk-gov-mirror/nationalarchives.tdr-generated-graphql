@@ -28,7 +28,7 @@ The following commands create a symbolic link to the generated Typescript versio
 1. In this project: `cd ts`
 2. In the ts directory: `npm run codegen`
 3. In the ts directory: `npm link`
-  * From the output of this command copy the following line: `@nationalarchives/tdr-generated-graphql`.
+    * From the output of this command copy the following line: `@nationalarchives/tdr-generated-graphql`.
 4. Navigate to the project that uses the generated schema in its Typescript code. In this project navigate to the relevant npm directory and run this command in that directory: `npm link @nationalarchives/tdr-generated-graphql`
 
 See the following blog post for more information on `npm link` and instructions to undo the symbolic link: https://medium.com/@alexishevia/the-magic-behind-npm-link-d94dcb3a81af 
