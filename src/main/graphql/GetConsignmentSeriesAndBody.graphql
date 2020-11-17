@@ -1,0 +1,10 @@
+query getConsignmentSeriesAndBody($consignmentId: UUID!) {
+    getConsignment(consignmentid: $consignmentId) {
+        series {
+            code
+        },
+        transferringBody {
+            name
+        }
+    }
+}
