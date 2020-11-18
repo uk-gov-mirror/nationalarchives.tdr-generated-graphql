@@ -1,4 +1,4 @@
-query getConsignmentSeriesAndBody($consignmentId: UUID!) {
+query getConsignmentSummary($consignmentId: UUID!) {
     getConsignment(consignmentid: $consignmentId) {
         series {
             code
