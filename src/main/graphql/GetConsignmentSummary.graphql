@@ -1,0 +1,11 @@
+query getConsignmentSummary($consignmentId: UUID!) {
+    getConsignment(consignmentid: $consignmentId) {
+        series {
+            code
+        },
+        transferringBody {
+            name
+        }
+        totalFiles
+    }
+}
