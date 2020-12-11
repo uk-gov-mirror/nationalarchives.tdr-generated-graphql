@@ -5,6 +5,6 @@ mutation AddClientFileMetadata($input: [AddClientFileMetadataInput!]!) {
         checksumType
         lastModified
         fileSize
-        datetime
     }
 }
+
