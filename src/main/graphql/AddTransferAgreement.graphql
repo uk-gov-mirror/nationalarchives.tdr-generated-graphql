@@ -4,7 +4,6 @@ mutation AddTransferAgreement($input: AddTransferAgreementInput!){
         allPublicRecords
         allCrownCopyright
         allEnglish
-        allDigital
         appraisalSelectionSignedOff
         sensitivityReviewSignedOff
         transferAgreementId
