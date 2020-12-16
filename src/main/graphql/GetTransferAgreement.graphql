@@ -3,7 +3,6 @@ query getTransferAgreement($consignmentId: UUID!) {
     transferAgreementId
     consignmentId
     allEnglish
-    allDigital
     allCrownCopyright
     allPublicRecords
     appraisalSelectionSignedOff
