@@ -6,6 +6,5 @@ mutation AddTransferAgreement($input: AddTransferAgreementInput!){
         allEnglish
         appraisalSelectionSignedOff
         sensitivityReviewSignedOff
-        transferAgreementId
     }
 }
