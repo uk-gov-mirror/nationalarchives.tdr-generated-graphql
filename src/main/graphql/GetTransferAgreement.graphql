@@ -1,6 +1,5 @@
 query getTransferAgreement($consignmentId: UUID!) {
   getTransferAgreement(consignmentid: $consignmentId) {
-    transferAgreementId
     consignmentId
     allEnglish
     allCrownCopyright
