@@ -41,7 +41,7 @@ resolvers +=
 
 graphqlCodegenStyle := Apollo
 graphqlCodegenJson := JsonCodec.Circe
-graphqlCodegenImports ++= List("java.util.UUID" )
+graphqlCodegenImports ++= List("java.util.UUID", "java.time.LocalDateTime")
 
 lazy val root = (project in file("."))
   .settings(
