@@ -1,7 +1,7 @@
-query getConsignmentExport($consignmentId: UUID!) {
+query getConsignmentForExport($consignmentId: UUID!) {
     getConsignment(consignmentid: $consignmentId) {
         userid
-        datetime
+        createdDatetime
         transferInitiatedDatetime
         exportDatetime
         series {
