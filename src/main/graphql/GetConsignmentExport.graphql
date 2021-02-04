@@ -1,0 +1,14 @@
+query getConsignmentForExport($consignmentId: UUID!) {
+    getConsignment(consignmentid: $consignmentId) {
+        userid
+        createdDatetime
+        transferInitiatedDatetime
+        exportDatetime
+        series {
+            code
+        }
+        transferringBody {
+            code
+        }
+    }
+}
