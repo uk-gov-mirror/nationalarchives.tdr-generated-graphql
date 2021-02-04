@@ -1,0 +1,14 @@
+query getFileMetadataForConsignmentExport($consignmentId: UUID!) {
+    getConsignment(consignmentid: $consignmentId) {fileMetadata {
+            fileId,
+            clientSideFileSize,
+            clientSideLastModifiedDate,
+            clientSideOriginalFilePath,
+            foiExemptionCode,
+            heldBy,
+            language,
+            legalStatus,
+            rightsCopyright
+        }
+    }
+}
