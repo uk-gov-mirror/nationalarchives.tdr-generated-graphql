@@ -1,0 +1,7 @@
+mutation AddFinalTransferConfirmation($input: AddFinalTransferConfirmationInput!){
+    addFinalTransferConfirmation(addFinalTransferConfirmationInput: $input) {
+        consignmentId
+        finalOpenRecordsConfirmed
+        legalOwnershipTransferConfirmed
+    }
+}
