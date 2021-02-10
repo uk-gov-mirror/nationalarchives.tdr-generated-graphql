@@ -10,5 +10,18 @@ query getConsignmentForExport($consignmentId: UUID!) {
         transferringBody {
             code
         }
+        files {
+            fileId
+            metadata {
+                clientSideFileSize,
+                clientSideLastModifiedDate,
+                clientSideOriginalFilePath,
+                foiExemptionCode,
+                heldBy,
+                language,
+                legalStatus,
+                rightsCopyright
+            }
+        }
     }
 }
