@@ -6,6 +6,7 @@ query getConsignmentSummary($consignmentId: UUID!) {
         transferringBody {
             name
         }
-        totalFiles
+        totalFiles,
+        consignmentReference
     }
 }
