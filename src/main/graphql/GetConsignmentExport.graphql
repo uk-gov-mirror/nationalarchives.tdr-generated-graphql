@@ -21,7 +21,8 @@ query getConsignmentForExport($consignmentId: UUID!) {
                 heldBy,
                 language,
                 legalStatus,
-                rightsCopyright
+                rightsCopyright,
+                sha256ClientSideChecksum
             }
         }
     }
