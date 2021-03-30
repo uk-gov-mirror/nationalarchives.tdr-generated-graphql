@@ -23,6 +23,19 @@ query getConsignmentForExport($consignmentId: UUID!) {
                 legalStatus,
                 rightsCopyright
             }
+            ffidMetadata {
+                software
+                softwareVersion
+                binarySignatureFileVersion
+                containerSignatureFileVersion
+                method
+                matches {
+                    extension
+                    identificationBasis
+                    puid
+                }
+                datetime
+            }
         }
     }
 }
