@@ -1,8 +1,5 @@
 query getConsignmentStatus($consignmentId: UUID!) {
     getConsignment(consignmentid: $consignmentId) {
-        series {
-            code
-        },
         currentStatus {
             upload
         }
