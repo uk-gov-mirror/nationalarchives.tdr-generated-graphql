@@ -1,0 +1,7 @@
+query getConsignmentStatus($consignmentId: UUID!) {
+    getConsignment(consignmentid: $consignmentId) {
+        currentStatus {
+            upload
+        }
+    }
+}
