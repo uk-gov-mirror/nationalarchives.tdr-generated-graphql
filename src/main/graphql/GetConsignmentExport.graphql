@@ -35,7 +35,6 @@ query getConsignmentForExport($consignmentId: UUID!) {
                     identificationBasis
                     puid
                 }
-                datetime
             }
         }
     }
