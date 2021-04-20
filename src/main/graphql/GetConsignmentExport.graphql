@@ -36,6 +36,10 @@ query getConsignmentForExport($consignmentId: UUID!) {
                     puid
                 }
             }
+            antivirusMetadata {
+                software
+                softwareVersion
+            }
         }
     }
 }
